@@ -1,7 +1,32 @@
-const fistName ="Kayky"
+//Number
+let x: number = 10
 
-function greeting(name){
-    console.log("Olá" + fistName)
-}
+console.log(x)
 
-greeting (fistName)
+console.log(typeof x)
+
+//String
+
+const FistName: String = "Kayky"
+
+console.log(FistName.toUpperCase())
+
+let FullName: String
+
+const LastName: String ="Cordeiro"
+
+FullName = FistName + " " + LastName
+
+console.log(FullName)
+
+//Boolean
+let a: Boolean = false
+
+console.log (a)
+console.log(typeof a)
+
+//Inference and anottation
+const ann: string ="Teste"
+let inf = "Teste"
+
+console.log(ann)
