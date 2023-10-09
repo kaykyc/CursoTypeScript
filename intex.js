@@ -1,89 +1,81 @@
 "use strict";
-//Arrays
-let number = [1, 2, 3];
-console.log(number);
-//any
-let qualquer = [2, "teste", true, { nome: "kayky" }];
-console.log(qualquer);
-//parammetros tipados
-function soma(a, b) {
-    console.log(a + b);
-}
-soma(5, 3);
-//retorno de função
-function greeting(nome) {
-    return `olá ${nome}`;
-}
-console.log(greeting("Kayky"));
-//função anonima
-setTimeout(function () {
-    const sallary = 1500;
-    console.log(sallary);
-}, 2000);
-// tipos de objetos
-function passCoordenadas(coord) {
-    console.log("X coordenadas eh: " + coord.x);
-    console.log("Y coordenadas eh: " + coord.y);
-}
-const objCoord = { x: 238, y: 876 };
-passCoordenadas(objCoord);
-//propriedades opcionais
-function showNumbers(a, b, c) {
-    console.log("A: " + a);
-    console.log("B: " + b);
-    if (c) {
-        console.log("C: " + c);
+// type guard
+function sum(a, b) {
+    if (typeof a === "string" && typeof b === "string") {
+        console.log(parseFloat(a) + parseFloat(b));
+    }
+    else if (typeof a === "number" && typeof b === "number") {
+        console.log(a - b);
+    }
+    else {
+        console.log("Não é possivel");
     }
 }
-showNumbers(1, 2, 4);
-showNumbers(1, 4);
-//validando argumento opcional
-function nomesTeste(nome, sobrenome) {
-    if (sobrenome !== undefined) {
-        return console.log(`Olá,  ${nome} ${sobrenome}`);
+sum("73", "2");
+sum(24, 294);
+sum(2, "67");
+//checando se o valor existe
+function operations(arr, operation) {
+    if (operation) {
+        if (operation === "sum") {
+            const sum = arr.reduce((i, total) => i + total);
+            console.log(sum);
+        }
+        else if (operation === "mult") {
+            const mult = arr.reduce((i, total) => i * total);
+            console.log(mult);
+        }
     }
-    return console.log(`Olá, ${nome}, tudo bem?`);
-}
-nomesTeste("Kaykykk", "cordeiro");
-//union type
-function showBalance(saldo) {
-    console.log(`O saldo da conta é R$:${saldo}`);
-}
-showBalance(100);
-showBalance("200");
-//mais de union types
-function showRole(role) {
-    if (typeof role === "boolean") {
-        return "Usuario não aprovado";
+    else {
+        console.log("Digite a operação a ser feita");
     }
-    return `A função do usuario é:${role}`;
 }
-console.log(showRole(false));
-console.log(showRole("Admin"));
-function ID(id) {
-    console.log(`O ID é: ${id}`);
+operations([2, 4, 5], "sum");
+operations([2, 4, 5], "mult");
+operations([2, 4, 5]);
+//instace of
+class User {
+    constructor(name) {
+        this.name = name;
+    }
 }
-ID(45);
-ID("200");
-function ShowCords(obj) {
-    console.log(`X: ${obj.x} Y: ${obj.y} Z: ${obj.z}`);
+class SuperUser extends User {
+    constructor(name) {
+        super(name);
+    }
 }
-const coordObj = {
-    x: 10,
-    y: 5,
-    z: 12
-};
-ShowCords(coordObj);
-const SomePerson = { nome: "Kayky", age: 20 };
-console.log(SomePerson);
-//literal types
-let teste;
-teste = "testando";
-console.log(teste);
-function Showdirection(direction) {
-    console.log(`Direção: ${direction}`);
+const jhon = new User("Jhon");
+const paul = new SuperUser("Paul");
+console.log(jhon);
+console.log(paul);
+function userGreeting(user) {
+    if (user instanceof SuperUser) {
+        console.log(`Olá, SuperUsuario ${user.name}`);
+    }
+    else if (user instanceof User) {
+        console.log(`olá, ${user.name}`);
+    }
 }
-Showdirection("left");
-//not null assertion operators 
-const p = document.getElementById("some-p");
-console.log(p.innerText);
+userGreeting(paul);
+userGreeting(jhon);
+//operador in
+class Dog {
+    constructor(name, raca) {
+        this.name = name;
+        if (raca) {
+            this.raca = raca;
+        }
+    }
+}
+const turca = new Dog("turco");
+const bob = new Dog("bob", "husky");
+function detalhesdog(dog) {
+    if ('raca' in dog) {
+        console.log(`a raça eh: ${dog.raca}`);
+    }
+    else {
+        console.log(`o cachorro n tem raca`);
+    }
+}
+detalhesdog(turca);
+detalhesdog(bob);
